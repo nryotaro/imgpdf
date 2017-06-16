@@ -1,5 +1,7 @@
-
+from imgpdf.greeting  import greet
+import sys
 
 def main():
     """Entry point for the application script"""
-    print("Call your main application code here")
+    greet(sys.argv[1])
+    # print("Call your main application code here")
