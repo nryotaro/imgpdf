@@ -1,5 +1,5 @@
-*.sublime-project
-*.sublime-workspace
+# package-specific files
+.mangapdf
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
