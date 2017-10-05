@@ -75,7 +75,8 @@ setup(
     # https://packaging.python.org/en/latest/requirements.html
     #install_requires=['peppercorn'],
     install_requires=[
-        'pillow'
+        'pillow',
+        'PyPDF2'
     ],
 
     # List additional groups of dependencies here (e.g. development
