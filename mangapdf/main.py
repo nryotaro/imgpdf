@@ -1,13 +1,10 @@
 # -*- coding:utf-8 -*-
 import os
 import tempfile
-import shutil
 
 
 def _list_img_files(pic_dir: str):
-    return NotImplemented
-    # os.listdir(pic_dir)
-
+    return os.listdir(pic_dir)
 
 def _generate_pdf(src, dest):
     return NotImplemented
