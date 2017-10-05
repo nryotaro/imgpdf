@@ -8,7 +8,8 @@ def _get_ext(filename):
 
 
 def _list_img_files(pic_dir: str):
-    return [os.path.join(pic_dir, f) for f in os.listdir(pic_dir) if (_get_ext(f) in {'.bmp', '.jpg', '.png'})]
+    return [os.path.join(pic_dir, f) for f in os.listdir(pic_dir)
+            if (_get_ext(f) in {'.bmp', '.jpg', '.png'})]
 
 
 def _generate_pdf(src, dest):
