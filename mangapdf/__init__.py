@@ -1,4 +1,4 @@
-from mangapdf.main import run
+from mangapdf.mangapdf import run
 from mangapdf.parser import build_parser
 import sys
 

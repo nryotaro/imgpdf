@@ -17,6 +17,8 @@ def _generate_pdf(src, dest):
 
 
 def _generate_pdf_files(root_dir, img_file_paths):
+    # os.path.basename('/ho/hoa.pdf') >> 'hoa.pdf'
+    # os.path.basename('/foo/bar') >> 'bar'
     dest_paths = [os.path.join(root_dir, os.path.basename(img_file_path))
                   for img_file_path in img_file_paths]
 
@@ -31,6 +33,8 @@ def _concat_pdf(filename, pdf_files, dest):
 def run(args):
 
     img_file_paths = _list_img_files(args.pic_dir)
+    #  tempfile.mkdtemp()
+    #  >> '/var/folders/j0/g25lzk_x7c7dcx7vs6dxs8jh0000gq/T/tmpz57kl7ze'
     temp_dir = tempfile.mkdtemp()
     _generate_pdf_files(temp_dir, img_file_paths)
 
