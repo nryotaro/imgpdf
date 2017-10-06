@@ -45,7 +45,9 @@ def _generate_pdf(img_file_paths, dest):
             merger.append(f)
             bar_status += 1
             bar.update(bar_status)
-            merger.write(output_f)
+            
+        merger.write(output_f)
+
         for f in pdf_fs:
             f.close()
 
