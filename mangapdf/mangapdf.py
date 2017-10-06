@@ -10,7 +10,8 @@ def _get_ext(filename):
 
 
 def _list_img_files(pic_dir: str):
-    return [os.path.join(pic_dir, f) for f in os.listdir(pic_dir)
+    resolved_path = os.path.expanduser(os.path.expandvars(pic_dir))
+    return [os.path.join(resolved_path, f) for f in os.listdir(resolved_path)
             if (_get_ext(f) in {'.bmp', '.jpg', '.png'})]
 
 
@@ -20,10 +21,9 @@ def _to_pdf_path(root_dir, filepath):
 
 
 def _generate_pdf(img_file_paths, dest):
-    temp_dir = tempfile.mkdtemp()
     merger = PdfFileMerger()
     with open(dest, 'wb') as output_f, progressbar.ProgressBar(
-            max_value=len(img_file_paths) * 2) as bar:
+            max_value=len(img_file_paths) * 2) as bar, TemporaryDirectory() as temp_dir:
         bar_status = 0
         temp_pdf_paths = [
             _to_pdf_path(temp_dir, path) for path in img_file_paths]
