@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-from mangapdf.mangapdf import _list_img_files, _get_ext, _generate_pdf_files
+from mangapdf.mangapdf import \
+    _list_img_files, _get_ext, _generate_pdf_files, _to_pdf_path
 from unittest.mock import patch, call
 
 
@@ -22,3 +23,7 @@ def test_generate_pdf_files(m):
     assert len(m.call_args_list) == 2
     assert m.call_args_list[0] == call('bar/a.png', 'foobar/piyo/a.pdf')
     assert m.call_args_list[1] == call('bar/b.png', 'foobar/piyo/b.pdf')
+
+
+def test_to_pdf_path():
+    assert _to_pdf_path('root_dir', 'foo/bar.png') == 'root_dir/bar.pdf'

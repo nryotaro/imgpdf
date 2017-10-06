@@ -9,3 +9,5 @@ def test_build_parser():
     parsed = parser.parse_args([d])
 
     assert parsed.pic_dir == d
+    assert not parsed.filename
+    
