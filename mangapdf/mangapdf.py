@@ -5,12 +5,17 @@ import PIL.Image as Image
 from PyPDF2 import PdfFileMerger
 import progressbar
 
+
+def _resolve_path(path):
+    return os.path.expanduser(os.path.expandvars(path))
+
+
 def _get_ext(filename):
     return os.path.splitext(filename)[1]
 
 
 def _list_img_files(pic_dir: str):
-    resolved_path = os.path.expanduser(os.path.expandvars(pic_dir))
+    resolved_path = _resolve_path(pic_dir)
     return [os.path.join(resolved_path, f) for f in os.listdir(resolved_path)
             if (_get_ext(f) in {'.bmp', '.jpg', '.png'})]
 
@@ -22,8 +27,9 @@ def _to_pdf_path(root_dir, filepath):
 
 def _generate_pdf(img_file_paths, dest):
     merger = PdfFileMerger()
-    with open(dest, 'wb') as output_f, progressbar.ProgressBar(
-            max_value=len(img_file_paths) * 2) as bar, TemporaryDirectory() as temp_dir:
+    with open(dest, 'wb') as output_f, \
+        progressbar.ProgressBar(max_value=len(img_file_paths) * 2) as bar, \
+            tempfile.TemporaryDirectory() as temp_dir:
         bar_status = 0
         temp_pdf_paths = [
             _to_pdf_path(temp_dir, path) for path in img_file_paths]
@@ -39,7 +45,7 @@ def _generate_pdf(img_file_paths, dest):
             merger.append(f)
             bar_status += 1
             bar.update(bar_status)
-        merger.write(output_f)
+            merger.write(output_f)
         for f in pdf_fs:
             f.close()
 
@@ -71,4 +77,4 @@ def run(args):
     pdf_filename = args.filename if args.filename else \
         os.path.basename(args.pic_dir) + '.pdf'
 
-    _generate_pdf(img_file_paths, pdf_filename)
+    _generate_pdf(img_file_paths, _resolve_path(pdf_filename))
