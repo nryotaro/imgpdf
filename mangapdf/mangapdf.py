@@ -3,7 +3,7 @@ import os
 import tempfile
 import PIL.Image as Image
 from PyPDF2 import PdfFileMerger
-
+import progressbar
 
 def _get_ext(filename):
     return os.path.splitext(filename)[1]
@@ -22,17 +22,23 @@ def _to_pdf_path(root_dir, filepath):
 def _generate_pdf(img_file_paths, dest):
     temp_dir = tempfile.mkdtemp()
     merger = PdfFileMerger()
-    with open(dest, 'wb') as output_f:
+    with open(dest, 'wb') as output_f, progressbar.ProgressBar(
+            max_value=len(img_file_paths) * 2) as bar:
+        bar_status = 0
         temp_pdf_paths = [
             _to_pdf_path(temp_dir, path) for path in img_file_paths]
 
         for img_path, pdf_path in zip(img_file_paths, temp_pdf_paths):
             with Image.open(img_path) as f:
                 f.save(pdf_path)
+                bar += 1
+                bar.update(bar_status)
 
         pdf_fs = [open(f, 'rb') for f in temp_pdf_paths]
         for f in pdf_fs:
             merger.append(f)
+            bar += 1
+            bar.update(bar_status)
         merger.write(output_f)
         for f in pdf_fs:
             f.close()

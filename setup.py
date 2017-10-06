@@ -76,7 +76,8 @@ setup(
     #install_requires=['peppercorn'],
     install_requires=[
         'pillow',
-        'PyPDF2'
+        'PyPDF2',
+        'progressbar2'
     ],
 
     # List additional groups of dependencies here (e.g. development
