@@ -22,4 +22,3 @@ def test_generate_pdf_files(m):
     assert len(m.call_args_list) == 2
     assert m.call_args_list[0] == call('bar/a.png', 'foobar/piyo/a.pdf')
     assert m.call_args_list[1] == call('bar/b.png', 'foobar/piyo/b.pdf')
-    # print(m.call_args_list[0] == call('foobar/a.png', 'foobar/hoge/a.png'))
