@@ -31,13 +31,13 @@ def _generate_pdf(img_file_paths, dest):
         for img_path, pdf_path in zip(img_file_paths, temp_pdf_paths):
             with Image.open(img_path) as f:
                 f.save(pdf_path)
-                bar += 1
+                bar_status += 1
                 bar.update(bar_status)
 
         pdf_fs = [open(f, 'rb') for f in temp_pdf_paths]
         for f in pdf_fs:
             merger.append(f)
-            bar += 1
+            bar_status += 1
             bar.update(bar_status)
         merger.write(output_f)
         for f in pdf_fs:
@@ -69,6 +69,6 @@ def run(args):
     #  >> '/var/folders/j0/g25lzk_x7c7dcx7vs6dxs8jh0000gq/T/tmpz57kl7ze'
 
     pdf_filename = args.filename if args.filename else \
-        os.path.basename(args.pic_dir)
+        os.path.basename(args.pic_dir) + '.pdf'
 
     _generate_pdf(img_file_paths, pdf_filename)
