@@ -79,4 +79,4 @@ def run(args):
     pdf_filename = args.filename if args.filename else \
         os.path.basename(args.pic_dir) + '.pdf'
 
-    _generate_pdf(img_file_paths, _resolve_path(pdf_filename))
+    _generate_pdf(sorted(img_file_paths), _resolve_path(pdf_filename))
